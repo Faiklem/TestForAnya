@@ -1,0 +1,33 @@
+:root {
+	--text-color: #4f4f4f;
+	--primary-btn-color: #b9e7c8;
+	--primary-btn-hover-color: #a7d0b4;
+	--reject-btn-color: #f7b7b9;
+	--reject-btn-hover-color: #dea5a7;
+
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+	color-scheme: light dark;
+	color: var(--text-color);
+	background-color: #f4f0f8;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 320px;
+	min-height: 100vh;
+}
+
+#app {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
