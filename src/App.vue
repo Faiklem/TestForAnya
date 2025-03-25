@@ -98,7 +98,7 @@ export default {
 					text: 'На этой фотографии ты?',
 					agreeBtn: 'Да',
 					rejectBtn: 'Нет',
-					imgSrc: this.getImageUrl('photo.jpg'),
+					imgSrc: this.getFileUrl('photo.jpg'),
 					rate: 200,
 					nextAgree: null,
 					nextReject: 5,
@@ -126,15 +126,15 @@ export default {
 		finishImage() {
 			const rate = this.totalRate
 			if (this.currentState === 'finish' && rate > 200) {
-				return this.getImageUrl('cat.gif')
+				return this.getFileUrl('cat.gif')
 			} else if (this.currentState === 'finish' && rate <= 200 && rate >= 80) {
-				return this.getImageUrl('smile.gif')
+				return this.getFileUrl('smile.gif')
 			} else if (this.currentState === 'finish' && rate < 80 && rate >= 50) {
-				return this.getImageUrl('like.webp')
+				return this.getFileUrl('like.webp')
 			} else if (this.currentState === 'finish' && rate < 50 && rate >= 20) {
-				return this.getImageUrl('soso.jpg')
+				return this.getFileUrl('soso.jpg')
 			} else {
-				return this.getImageUrl('sad.gif')
+				return this.getFileUrl('sad.gif')
 			}
 		},
 		testResult() {
@@ -157,11 +157,11 @@ export default {
 	},
 	methods: {
 		preloadFinalImages() {
-			const images = ['photo.jpg', 'cat.gif', 'smile.gif', 'like.webp', 'soso.jpg', 'sad.gif'];
+			const images = ['photo.jpg', 'cat.gif', 'smile.gif', 'like.webp', 'soso.jpg', 'sad.gif']
 			images.forEach((filename) => {
-				const img = new Image();
-				img.src = `/assets/${filename}`;
-			});
+				const img = new Image()
+				img.src = this.getFileUrl(filename)
+			})
 		},
 		saveData() {
 			const data = {
@@ -181,7 +181,7 @@ export default {
 			}
 		},
 		saveMusicState() {
-			sessionStorage.setItem('musicPlaying', JSON.stringify(this.isMusicPlaying));
+			sessionStorage.setItem('musicPlaying', JSON.stringify(this.isMusicPlaying))
 		},
 		loadMusicState() {
 			const savedMusicState = sessionStorage.getItem('musicPlaying')
@@ -201,9 +201,9 @@ export default {
 		},
 		toggleMusic() {
 			if (this.isMusicPlaying) {
-				this.audio.pause();
+				this.audio.pause()
 			} else {
-				this.audio.play().catch(error => console.warn('Ошибка воспроизведения', error));
+				this.audio.play().catch(error => console.warn('Ошибка воспроизведения', error))
 			}
 			this.isMusicPlaying = !this.isMusicPlaying;
 			this.saveMusicState()
@@ -232,14 +232,13 @@ export default {
 			}
 			this.saveData()
 		},
-		getImageUrl(filename) {
-			const link = `/assets/${filename}`
-			return link
+		getFileUrl(filename) {
+			return import.meta.env.BASE_URL + 'assets/' + filename
 		}
 	},
 	mounted() {
 		this.preloadFinalImages()
-		this.audio = new Audio('/assets/music.mp3')
+		this.audio = new Audio(this.getFileUrl('music.mp3'))
 		this.audio.loop = true
 		this.saveMusicState()
 		if (this.isMusicPlaying) {
